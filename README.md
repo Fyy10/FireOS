@@ -17,3 +17,11 @@ nasm hello.asm -o hello.img
 ```shell
 qemu-system-i386 hello.img
 ```
+
+或者使用如下方式：
+
+```shell
+make
+make run
+make clean
+```
