@@ -35,7 +35,8 @@
     DB  0x0a
     DB  0
 
-    RESB    378     ;fill 0x00 until 0x001fe    本应该是0x1fe-$但不知道为啥报错了Orz
+    ;RESB    378     ;fill 0x00 until 0x001fe    本应该是0x1fe-$但不知道为啥报错了Orz
+	TIMES	0x1fe-($-$$) DB 0x00
     DB  0x55, 0xaa  ;引导区的最后两字节必须是这俩
 
 ;启动区以外部分的输出

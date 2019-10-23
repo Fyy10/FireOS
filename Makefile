@@ -1,7 +1,7 @@
-hello.img : hello.asm
-	nasm hello.asm -o hello.img
+hello.img : hello.s
+	nasm hello.s -fbin -o hello.img
 
-run :
+run : hello.img
 	qemu-system-i386 hello.img
 
 clean :
