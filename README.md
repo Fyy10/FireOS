@@ -6,10 +6,10 @@ An OS using C/C++, for personal use and practice.
 
 ## 使用方法
 
-在linux环境中用nasm编译hello.asm
+在linux环境中用nasm编译hello.s
 
 ```shell
-nasm hello.asm -o hello.img
+nasm hello.s -o hello.img
 ```
 
 用QEMU运行
