@@ -38,8 +38,8 @@ entry:
 ; display msg
 putloop:
 ; 显示一个字符：
-; AL=0x0e
-; AH=character code
+; AH=0x0e
+; AL=character code
 ; BH=0
 ; BL=color code
 ; 用INT 0x10调用显卡BIOS
