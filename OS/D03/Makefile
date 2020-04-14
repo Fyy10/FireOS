@@ -1,12 +1,16 @@
-ipl.bin : ipl.s
-	nasm ipl.s -o ipl.bin
+OSNAME = FireOS
+ASMNAME = ipl
 
-fireos.sys : fireos.s
-	nasm fireos.s -o fireos.sys
+$(OSNAME).iso : $(ASMNAME).bin
+	truncate $(ASMNAME).bin -s 1200k
+	mkisofs -o $(OSNAME).iso -b $(ASMNAME).bin ./
 
-run : ipl.bin fireos.sys
-	qemu-system-i386 ipl.bin
+$(ASMNAME).bin : $(ASMNAME).s
+	nasm -fbin $(ASMNAME).s -o $(ASMNAME).bin
+
+run : $(ASMNAME).bin $(OSNAME).iso
+	qemu-system-i386 $(ASMNAME).bin
 
 clean :
-	rm ipl.bin
-	rm fireos.sys
+	rm $(OSNAME).iso
+	rm $(ASMNAME).bin

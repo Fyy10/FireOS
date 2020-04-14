@@ -58,7 +58,8 @@ retry:
     MOV     AH, 0x02    ; AH=0x02：读盘
     MOV     AL, 1       ; 1个扇区
     MOV     BX, 0
-    MOV     DL, 0x00    ; A驱动器
+    MOV     DL, 0x00    ; A驱动器 (for floppy / flash drive)
+    ; MOV     DL, 0x80  ; for hard disk (qemu emulates hard disk)
     INT     0x13        ; 调用磁盘BIOS
 
     ; 返回AH status为0x20（控制器失败）？？？
