@@ -5,7 +5,7 @@ $(OSNAME).iso : $(ASMNAME).bin
 	truncate $(ASMNAME).bin -s 1200k
 	mkisofs -o $(OSNAME).iso -b $(ASMNAME).bin ./
 
-$(ASMNAME).bin : $(ASMNAME).s printf.s readDisk.s
+$(ASMNAME).bin : $(ASMNAME).s printf.s readDisk.s printh.s
 	nasm -fbin $(ASMNAME).s -o $(ASMNAME).bin
 
 run : $(ASMNAME).bin

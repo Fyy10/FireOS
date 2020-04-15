@@ -38,19 +38,32 @@ call printf
 mov al, 1       ; number of sectors to read
 mov cl, 2       ; first sector to read (sector 1 is for ipl)
 call readDisk
-jmp test
+
+call test
+
+mov dl, [0x7c00+510]    ; 0x55
+mov dh, [0x7c00+511]    ; 0xaa
+call printh
+
+; to disable A20 line
+; mov ax, 0x2400
+; int 0x15
+
+call testA20
 
 jmp fin
 
 ; functions
 %include "printf.s"
 %include "readDisk.s"
+%include "printh.s"
+%include "testA20.s"
 
 ; string here
 STR_1: db "Welcome to FireOS", 0x0a, 0x0d, 0
-STR_2: db "Loaded in 16-bit Real Mode to memory location 0x7c00", 0x0a, 0x0d, 0
+STR_2: db "Loaded in 16-bit Real Mode to memory location at 0x7c00", 0x0a, 0x0d, 0
 DISK_ERR_MSG: db "Error Loading Disk...", 0x0a, 0x0d, 0
-TEST_STR: db "Disk loaded successfully, you are in the second sector", 0x0a, 0x0d, 0
+TEST_STR: db "Disk loaded successfully, you are in the second sector now", 0x0a, 0x0d, 0
 
 fin:
     hlt
@@ -64,6 +77,7 @@ dw 0xaa55
 test:
     mov si, TEST_STR
     call printf
+    ret
 
 times 512 db 0
 
