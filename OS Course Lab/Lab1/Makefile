@@ -3,7 +3,7 @@ NAME=TestShell
 app:
 	g++ *.cpp -o $(NAME)
 
-run: TestShell
+run: app
 	./TestShell
 
 clean:

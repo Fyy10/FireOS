@@ -12,5 +12,10 @@ using namespace std;
 void init();
 void create_process(string, int);
 void delete_process(string);
+void request_res(string, int);
+void release_res(string, int);
+void time_out();
+void list_info(string);
+void print_info(string);
 
 #endif //FIREOS_KERNEL_H
