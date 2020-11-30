@@ -10,6 +10,6 @@
 using namespace std;
 
 // extract parameters from commands
-vector<string> extract_parameters(string);
+int extract_parameters(string, string*);
 
 #endif //FIREOS_TESTSHELL_H
