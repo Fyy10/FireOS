@@ -7,22 +7,33 @@
 
 // #include "bits/stdc++.h"
 #include "vector"
+#include "set"
+#include "string"
 using namespace std;
-
-enum State {
-    RUNNING,
-    READY,
-    BLOCK
-};
 
 // process control block
 class PCB {
 private:
-    int process_id;
-    State status;
+    // pid (name)
+    string pid;
+    // status: running, ready, block
+    string status;
+    // priority: 0, 1, 2
     int priority;
+    // requested resource set
+    set<int> res;
     PCB* father;
-    vector<PCB*> son;
+    vector<PCB*> sons;
+
+public:
+    PCB(string, string, int, PCB* father=NULL);
+    ~PCB();
+
+    string get_pid();
+    string get_status();
+    int get_priority();
+    void display();
+    void kill();
 };
 
 

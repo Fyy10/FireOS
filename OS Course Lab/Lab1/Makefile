@@ -1,6 +1,6 @@
 NAME=TestShell
 
-app:
+app: TestShell.cpp TestShell.h PCB.cpp PCB.h kernel.cpp kernel.h
 	g++ *.cpp -o $(NAME)
 
 run: app
