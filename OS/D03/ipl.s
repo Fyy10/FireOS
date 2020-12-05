@@ -43,7 +43,8 @@ entry:
 ; choose a free memory area
 ; view https://wiki.osdev.org/Memory_Map_(x86) for more information
     ; MOV     AX, 0x07e0
-    MOV     AX, 0x0820
+    ; MOV     AX, 0x0820
+    MOV     AX, 0
     MOV     ES, AX
     MOV     CH, 0   ; 柱面0
     MOV     DH, 0   ; 磁头0
@@ -58,8 +59,8 @@ retry:
     MOV     AH, 0x02    ; AH=0x02：读盘
     MOV     AL, 1       ; 1个扇区
     MOV     BX, 0
-    MOV     DL, 0x00    ; A驱动器 (for floppy / flash drive)
-    ; MOV     DL, 0x80  ; for hard disk (qemu emulates hard disk)
+    ; MOV     DL, 0x00  ; A驱动器 (for floppy / flash drive)
+    MOV     DL, 0x80    ; for hard disk (qemu emulates hard disk)
     INT     0x13        ; 调用磁盘BIOS
 
     ; 返回AH status为0x20（控制器失败）？？？
@@ -124,4 +125,4 @@ msg:
 
     ; 这里前后不一致？0x1fe? 0x7dfe?
     RESB    0x1fe-($-$$)    ; fill 0x00 until 0x1fe
-    DB  0x55, 0xaa          ;引导区的最后两字节必须是这俩
+    DB  0x55, 0xaa          ;引导区的最后两字节必须是这俩(DW 0xAA55)
