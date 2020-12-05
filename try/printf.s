@@ -11,5 +11,5 @@ printf:
     print_char:
         mov ah, 0x0e
         int 0x10
-        add si, 1
+        inc si      ; add si, 1
         jmp str_loop
