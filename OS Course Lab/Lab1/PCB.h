@@ -26,11 +26,12 @@ private:
     vector<PCB*> sons;
 
 public:
-    PCB(string, string, int, PCB* father=NULL);
+    PCB(string pid, int priority, PCB* father=NULL);
     ~PCB();
 
     string get_pid();
     string get_status();
+    void set_status(string status);
     int get_priority();
     void display();
     void kill();

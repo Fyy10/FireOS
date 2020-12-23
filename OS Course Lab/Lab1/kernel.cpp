@@ -8,7 +8,7 @@
 #include "PCB.h"
 using namespace std;
 
-bool proc_init = false;
+//bool proc_init = false;
 // res: 0, 1, 2, 3
 int res_remain[4] = {1, 1, 2, 2};
 // priority 0, 1, 2: init, user, system
@@ -16,24 +16,35 @@ vector<PCB*> ready_list[3];
 vector<PCB*> block_list[3];
 PCB* running_proc;
 
+void scheduler() {
+    for (int i = 2; i >= 0; i--) {
+        if (ready_list[i].empty()) continue;
+        else {
+            cout << "Process " << ready_list[i].front()->get_pid() << " is running" << endl;
+            break;
+        }
+    }
+}
+
 void init() {
-    cout << "Process init is running" << endl;
-    proc_init = true;
+    PCB* p = new PCB("init", 0);
+    ready_list[0].push_back(p);
+    scheduler();
 }
 
 void create_process(string name, int priority) {
-    if (!proc_init) {
+    if (ready_list[0].empty()) {
         cout << "Please run init process at first." << endl;
         return;
     }
-    PCB* p = new PCB(name, "running", priority);
-    ready_list[1].push_back(p);
     // create process 'name', priority 'priority'
-    cout << "Process " << name << " is running" << endl;
+    PCB* p = new PCB(name, priority);
+    ready_list[priority].push_back(p);
+    scheduler();
 }
 
 void delete_process(string name) {
-    if (!proc_init) {
+    if (ready_list[0].empty()) {
         cout << "Please run init process at first." << endl;
         return;
     }
@@ -41,7 +52,7 @@ void delete_process(string name) {
 }
 
 void request_res(string name, int id) {
-    if (!proc_init) {
+    if (ready_list[0].empty()) {
         cout << "Please run init process at first." << endl;
         return;
     }
@@ -49,7 +60,7 @@ void request_res(string name, int id) {
 }
 
 void release_res(string name, int id) {
-    if (!proc_init) {
+    if (ready_list[0].empty()) {
         cout << "Please run init process at first." << endl;
         return;
     }
@@ -57,7 +68,7 @@ void release_res(string name, int id) {
 }
 
 void time_out() {
-    if (!proc_init) {
+    if (ready_list[0].empty()) {
         cout << "Please run init process at first." << endl;
         return;
     }

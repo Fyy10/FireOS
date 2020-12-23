@@ -7,9 +7,9 @@
 
 using namespace std;
 
-PCB::PCB(string pid, string status, int priority, PCB* father) {
+PCB::PCB(string pid, int priority, PCB* father) {
     this->pid = pid;
-    this->status = status;
+    this->status = "ready";
     this->priority = priority;
     this->father = father;
 }
@@ -25,6 +25,10 @@ string PCB::get_pid() {
 
 string PCB::get_status() {
     return status;
+}
+
+void PCB::set_status(string status) {
+    this->status = status;
 }
 
 int PCB::get_priority() {

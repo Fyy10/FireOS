@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/TestShell.dir/PCB.o CMakeFiles/TestShell.dir/RCB.o CMakeFiles/TestShell.dir/TestShell.o CMakeFiles/TestShell.dir/kernel.o  -o TestShell 

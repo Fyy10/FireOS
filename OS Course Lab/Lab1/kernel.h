@@ -8,6 +8,8 @@
 #include "string"
 using namespace std;
 
+// scheduler
+void scheduler();
 // kernel functions
 void init();
 void create_process(string, int);
