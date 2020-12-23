@@ -1,3 +1,0 @@
-/home/jefffu/CLionProjects/FireOS/OS Course Lab/Lab1/CMakeFiles/rebuild_cache.dir
-/home/jefffu/CLionProjects/FireOS/OS Course Lab/Lab1/CMakeFiles/edit_cache.dir
-/home/jefffu/CLionProjects/FireOS/OS Course Lab/Lab1/CMakeFiles/TestShell.dir
