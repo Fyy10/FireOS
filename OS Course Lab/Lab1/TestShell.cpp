@@ -7,11 +7,14 @@
 #include "iostream"
 #include "string"
 #include "vector"
+#include "stdlib.h"
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
+    // define the number of valid commands
     const int num_commands = 8;
+    // list of valid commands
     string commands[num_commands] = {"init", "cr", "de", "req", "rel", "to", "list", "pr"};
     // read command
     string command;
@@ -49,7 +52,10 @@ int main(int argc, char* argv[]) {
             // pr
             case 7: print_info(params[1]); break;
             // invalid commands
-            default: cout << "Invalid command, please input again." << endl;
+            default: {
+                cout << "Invalid command, using system shell:" << endl;
+                system(command.data());
+            }
         }
     }
     return 0;
