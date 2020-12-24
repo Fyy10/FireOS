@@ -1,0 +1,53 @@
+TestShell> Process init is running.
+TestShell> Process x is running.
+TestShell> Process x is running.
+TestShell> Process x is running.
+TestShell> Process x is running.
+TestShell> 2: 
+1: p-q-r
+0: init
+TestShell> TestShell> Process x is ready.
+Process p is running.
+TestShell> Process p requests 1 R2
+Process p is running.
+TestShell> Process p is ready.
+Process q is running.
+TestShell> Process q requests 3 R3
+Process q is running.
+TestShell> Process q is ready.
+Process r is running.
+TestShell> Process r requests 3 R4
+Process r is running.
+TestShell> R1 1
+R2 1
+R3 0
+R4 1
+TestShell> TestShell> Process r is ready.
+Process x is running.
+TestShell> Process x is ready.
+Process p is running.
+TestShell> Process p is blocked.
+Process q is running.
+TestShell> Process q is blocked.
+Process r is running.
+TestShell> Process r is blocked.
+Process x is running.
+TestShell> R1 
+R2 r
+R3 p
+R4 q
+TestShell> TestShell> Process x is ready.
+Process x is running.
+TestShell> Delete process q:
+    Release 0 R1
+    Release 0 R2
+    Release 3 R3
+    Release 0 R4
+Wake up process p
+Process x is running.
+TestShell> Process x is ready.
+Process p is running.
+TestShell> Process p is ready.
+Process x is running.
+TestShell> Process w is running.
+TestShell> 

@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
     while (1) {
         cout << "TestShell> ";
         getline(cin, command);
+        if (command.empty()) continue;
         // array for analyzing params
         string params[10];
         extract_parameters(command, params);

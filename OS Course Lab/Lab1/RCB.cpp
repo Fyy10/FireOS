@@ -3,3 +3,11 @@
 //
 
 #include "RCB.h"
+
+RCB::RCB(string rid, int n) {
+    this->rid = rid;
+    this->available = this->num = n;
+}
+
+RCB::~RCB() {
+}

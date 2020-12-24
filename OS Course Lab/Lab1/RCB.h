@@ -6,17 +6,20 @@
 #define FIREOS_RCB_H
 
 #include "string"
-#include "vector"
+#include "list"
 #include "PCB.h"
 
 class RCB {
-private:
-    string rid;
-    int Status;
-    vector<PCB*> waiting_list;
-
 public:
-    RCB(string, int);
+    // name of res
+    string rid;
+    // total number of res
+    int num;
+    // number of available res
+    int available;
+    list<PCB*> waiting_list;
+
+    RCB(string rid, int n);
     ~RCB();
 };
 

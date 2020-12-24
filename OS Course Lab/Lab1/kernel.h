@@ -6,11 +6,15 @@
 #define FIREOS_KERNEL_H
 
 #include "string"
+#include "PCB.h"
 using namespace std;
 
 // scheduler
 void scheduler();
 // kernel functions
+PCB* find_process(string name);
+void kill_tree(PCB*);
+
 void init();
 void create_process(string, int);
 void delete_process(string);
