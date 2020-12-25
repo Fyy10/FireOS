@@ -16,9 +16,13 @@ RCB res_list[4] = {RCB("R1", 1), RCB("R2", 2), RCB("R3", 3), RCB("R4", 4)};
 list<PCB*> ready_list[3];
 // NULL if not initialized
 PCB* running_proc = NULL;
-//PCB* timeout_proc = NULL;
 
+// called at last in each kernel function
 void scheduler() {
+    if (running_proc == NULL && ready_list[0].empty()) {
+        cout << "Process init deleted, please init." << endl;
+        return;
+    }
     // check the block list (res), allocate res and change status
     for (int i = 0; i < 4; i++) {
         while (!res_list[i].waiting_list.empty()) {
@@ -139,6 +143,7 @@ void delete_process(string name) {
     else if (running_proc->status != "dead") ready_list[running_proc->priority].push_front(running_proc);
     if (p != NULL) delete p;
     if (p == NULL) cout << "Process " << name << " does not exist." << endl;
+    if (name == "init") running_proc = NULL;
     scheduler();
 }
 
