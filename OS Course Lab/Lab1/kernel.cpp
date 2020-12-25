@@ -118,9 +118,10 @@ void create_process(string name, int priority) {
         return;
     }
     // create process 'name', priority 'priority'
-    PCB* p = new PCB(name, priority);
+    PCB* p = new PCB(name, priority, running_proc);
     ready_list[priority].push_back(p);
     running_proc->status = "ready";
+    running_proc->sons.push_back(p);
     ready_list[running_proc->priority].push_front(running_proc);
     scheduler();
 }
@@ -129,15 +130,14 @@ void delete_process(string name) {
     PCB* p = find_process(name);
     if (p != NULL) {
         kill_tree(p);
-        delete p;
     }
     // find in running
-    if (running_proc->pid == name) {
+    if (running_proc->pid == name && running_proc->status != "dead") {
         p = running_proc;
         kill_tree(p);
-        delete p;
     }
-    else ready_list[running_proc->priority].push_front(running_proc);
+    else if (running_proc->status != "dead") ready_list[running_proc->priority].push_front(running_proc);
+    if (p != NULL) delete p;
     if (p == NULL) cout << "Process " << name << " does not exist." << endl;
     scheduler();
 }
@@ -289,6 +289,15 @@ void print_info(string name) {
         cout << "PID: " << p->pid << endl;
         cout << "Status: " << p->status << endl;
         cout << "Priority: " << p->priority << endl;
+        cout << "Father: ";
+        if (p->pid == "init") cout << endl;
+        else cout << p->father->pid << endl;
+        cout << "Sons: ";
+        for (PCB* son_ptr : p->sons) {
+            cout << son_ptr->pid;
+            if (son_ptr != p->sons.back()) cout << ", ";
+        }
+        cout << endl;
         cout << "Resources requested:" << endl;
         for (int i = 0; i < 4; i++) {
             cout << "    " << res_list[i].rid << " " << p->res[i] << endl;
