@@ -50,10 +50,6 @@ void scheduler() {
         break;
     }
     cout << "Process " << running_proc->pid << " is " << running_proc->status << "." << endl;
-//    if (timeout_proc != NULL && timeout_proc != running_proc) {
-//        cout << "Process " << timeout_proc->pid << " is " << timeout_proc->status << "." << endl;
-//    }
-//    timeout_proc = NULL;
 }
 
 // find in ready/block list
@@ -133,11 +129,13 @@ void create_process(string name, int priority) {
 void delete_process(string name) {
     PCB* p = find_process(name);
     if (p != NULL) {
+        if (p->pid != "init") p->father->sons.remove(p);
         kill_tree(p);
     }
     // find in running
     if (running_proc->pid == name && running_proc->status != "dead") {
         p = running_proc;
+        if (p->pid != "init") p->father->sons.remove(p);
         kill_tree(p);
     }
     else if (running_proc->status != "dead") ready_list[running_proc->priority].push_front(running_proc);
@@ -201,22 +199,23 @@ void release_res(string name, int n) {
     cout << "Process " << running_proc->pid << " releases " << n << " " << name << endl;
     res_list[i].available += n;
     running_proc->res[i] -= n;
-    if (!res_list[i].waiting_list.empty()) {
-        list<PCB*>::iterator it;
-        for (it = res_list[i].waiting_list.begin(); it != res_list[i].waiting_list.end(); it++) {
-            if ((*it)->req_res[i] <= res_list[i].available) break;
-        }
-        PCB* p = *it;
-        p->req_res[i] = 0;
-        bool ready_flag = true;
-        for (int i = 0; i < 4; i++) {
-            if (p->req_res[i] != 0) ready_flag = false;
-        }
-        if (ready_flag) {
-            p->status = "ready";
-            ready_list[p->priority].push_back(p);
-        }
-    }
+//    if (!res_list[i].waiting_list.empty()) {
+//        list<PCB*>::iterator it;
+//        for (it = res_list[i].waiting_list.begin(); it != res_list[i].waiting_list.end(); it++) {
+//            if ((*it)->req_res[i] <= res_list[i].available) break;
+//        }
+//        PCB* p = *it;
+//        p->req_res[i] = 0;
+//        bool ready_flag = true;
+//        for (int i = 0; i < 4; i++) {
+//            if (p->req_res[i] != 0) ready_flag = false;
+//        }
+//        if (ready_flag) {
+//            p->status = "ready";
+//            cout << "Wake up process " << p->pid << endl;
+//            ready_list[p->priority].push_back(p);
+//        }
+//    }
     running_proc->status = "ready";
     ready_list[running_proc->priority].push_front(running_proc);
     scheduler();

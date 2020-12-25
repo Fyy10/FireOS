@@ -6,7 +6,7 @@
 #define FIREOS_PCB_H
 
 // #include "bits/stdc++.h"
-#include "vector"
+#include "list"
 #include "string"
 using namespace std;
 
@@ -24,7 +24,7 @@ public:
     // requesting resource list (when blocked)
     int req_res[4];
     PCB* father;
-    vector<PCB*> sons;
+    list<PCB*> sons;
 
     PCB(string pid, int priority, PCB* father=NULL);
     ~PCB();
