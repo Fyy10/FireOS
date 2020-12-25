@@ -163,6 +163,11 @@ void request_res(string name, int n) {
         ready_list[running_proc->priority].push_front(running_proc);
     }
     else {
+        if (res_list[i].num < n) {
+            cout << "Error: requested more than total, killing process " << running_proc->pid << "..." << endl;
+            delete_process(running_proc->pid);
+            return;
+        }
         running_proc->status = "blocked";
         running_proc->req_res[i] += n;
         cout << "Process " << running_proc->pid << " is " << running_proc->status << "." << endl;
@@ -190,6 +195,7 @@ void release_res(string name, int n) {
     }
     cout << "Process " << running_proc->pid << " releases " << n << " " << name << endl;
     res_list[i].available += n;
+    running_proc->res[i] -= n;
     if (!res_list[i].waiting_list.empty()) {
         list<PCB*>::iterator it;
         for (it = res_list[i].waiting_list.begin(); it != res_list[i].waiting_list.end(); it++) {
